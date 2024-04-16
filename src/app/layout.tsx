@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "./globals.css";
+import { Open_Sans, Montserrat } from "next/font/google";
+import "@/styles/globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Montserrat({
+  subsets: ["cyrillic", "cyrillic-ext", "latin", "latin-ext", "vietnamese"],
+});
 
 export const metadata: Metadata = {
   title: "Create Next App",

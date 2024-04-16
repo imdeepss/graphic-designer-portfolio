@@ -18,6 +18,8 @@
       }
     ],
     "paths": {
+      "@/components/*": ["./src/app/(common)/_components/*"],
+      "@/lib/*": ["./src/app/(common)/_lib/*"],
       "@/*": ["./src/*"]
     }
   },
