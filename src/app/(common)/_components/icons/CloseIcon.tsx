@@ -6,7 +6,7 @@ const CloseIcon = () => {
       width="16"
       height="16"
       viewBox="0 0 16 16"
-      fill="none"
+      fill="rgba(0, 43, 53, 1)"
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
