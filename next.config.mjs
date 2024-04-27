@@ -6,7 +6,8 @@ const nextConfig = {
             "unsplash.com",
             "plus.unsplash.com",
             "images.unsplash.com",
-            "source.unsplash.com"
+            "source.unsplash.com",
+            "res.cloudinary.com"
         ],
     },
 };
