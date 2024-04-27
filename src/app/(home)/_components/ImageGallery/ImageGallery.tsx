@@ -5,17 +5,8 @@ type Props = {
   images: ImageProps[];
 };
 const ImageGallery = ({ images }: Props) => {
-  console.log(images);
-  // const columns = 4;
-  // const columnData = Array.from({ length: columns }, (_, i) =>
-  //   images.slice(
-  //     i * Math.ceil(images.length / columns),
-  //     (i + 1) * Math.ceil(images.length / columns),
-  //   ),
-  // );
-
   return (
-    <section className="w-full py-10">
+    <section className="w-full py-20">
       <div className="columns-1 gap-4 sm:columns-2 xl:columns-3 2xl:columns-4">
         {images.map(({ id, public_id, format, blurDataUrl }) => (
           <div
