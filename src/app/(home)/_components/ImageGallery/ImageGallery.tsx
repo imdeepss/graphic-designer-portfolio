@@ -1,32 +1,47 @@
-import Image from "next/image";
-import { ImageProps } from "@/type/index";
+"use client";
 
-type Props = {
-  images: ImageProps[];
-};
-const ImageGallery = ({ images }: Props) => {
+import { ImageProps } from "@/type/index";
+import axios from "axios";
+import { useEffect, useState, Suspense } from "react";
+import SingleImageCard from "./SingleImageCard";
+import Loading from "./loading";
+
+const ImageGallery = () => {
+  const [images, setImages] = useState<ImageProps[]>([]);
+
+  useEffect(() => {
+    const fetchImages = async () => {
+      try {
+        const response = await axios.post("/api/fetch-cloudinary");
+        const results = response.data.resources;
+        const mappedResults: ImageProps[] = results.map(
+          (result: any, index: any) => ({
+            id: index,
+            height: result.height,
+            width: result.width,
+            public_id: result.public_id,
+            format: result.format,
+            url: result.url,
+          }),
+        );
+
+        setImages(mappedResults);
+      } catch (error) {
+        console.error("Error fetching images:", error);
+      }
+    };
+
+    fetchImages();
+  }, []);
+
   return (
     <section className="w-full py-20">
       <div className="columns-1 gap-4 sm:columns-2 xl:columns-3 2xl:columns-4">
-        {images.map(({ id, public_id, format, blurDataUrl }) => (
-          <div
-            key={id}
-            className="after:content after:shadow-highlight group relative mb-5 block w-full cursor-zoom-in after:pointer-events-none after:absolute after:inset-0 after:rounded-lg"
-          >
-            <Image
-              src={`https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/c_scale,w_720/${public_id}.${format}`}
-              alt={String(blurDataUrl)}
-              width={720}
-              height={480}
-              sizes="(max-width: 640px) 100vw,
-              (max-width: 1280px) 50vw,
-              (max-width: 1536px) 33vw,
-              25vw"
-              className="transform rounded-lg brightness-90 transition will-change-auto group-hover:brightness-110"
-              style={{ transform: "translate3d(0, 0, 0)" }}
-            />
-          </div>
-        ))}
+        <Suspense fallback={<Loading />}>
+          {images.map((details) => (
+            <SingleImageCard key={details.id} details={details} />
+          ))}
+        </Suspense>
       </div>
     </section>
   );
