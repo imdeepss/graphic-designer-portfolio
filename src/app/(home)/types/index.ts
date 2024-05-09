@@ -16,3 +16,8 @@ export interface SharedModalProps {
   navigation: boolean;
   direction?: number;
 }
+
+export interface ShootingStarProps {
+  vw: number;
+  vh: number;
+}

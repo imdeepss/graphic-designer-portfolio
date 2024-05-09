@@ -1,37 +1,31 @@
 "use client";
 
-import { ImageProps } from "@/type/index";
-import axios from "axios";
 import { useEffect, useState, Suspense } from "react";
+import axios from "axios";
+import { ImageProps } from "@/type/index";
 import SingleImageCard from "./SingleImageCard";
 import Loading from "./loading";
+
+const fetchImages = async () => {
+  try {
+    const response = await axios.post("/api/fetch-cloudinary");
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching images:", error);
+    return [];
+  }
+};
 
 const ImageGallery = () => {
   const [images, setImages] = useState<ImageProps[]>([]);
 
   useEffect(() => {
-    const fetchImages = async () => {
-      try {
-        const response = await axios.post("/api/fetch-cloudinary");
-        const results = response.data.resources;
-        const mappedResults: ImageProps[] = results.map(
-          (result: any, index: any) => ({
-            id: index,
-            height: result.height,
-            width: result.width,
-            public_id: result.public_id,
-            format: result.format,
-            url: result.url,
-          }),
-        );
-
-        setImages(mappedResults);
-      } catch (error) {
-        console.error("Error fetching images:", error);
-      }
+    const getResults = async () => {
+      const result = await fetchImages();
+      setImages(result);
     };
 
-    fetchImages();
+    getResults();
   }, []);
 
   return (

@@ -44,8 +44,8 @@ const AboutUs = () => {
           </div>
         </div>
       </section>
-      <section className="relative  w-full md:h-screen">
-        <div className="absolute left-0 top-0 h-full w-full bg-[url('/images/about-us.png')] bg-cover bg-center bg-no-repeat" />
+      {/* <section className="relative  w-full md:h-screen">
+        <div className="absolute left-0 top-0 h-full w-full bg-[url('/images/sim.png')] bg-cover bg-center bg-no-repeat" />
         <div className="relative z-10 w-1/3">
           <h1 className="mb-5 text-6xl font-extrabold text-primary">
             About Us
@@ -65,7 +65,7 @@ const AboutUs = () => {
             your next project to life!
           </p>
         </div>
-      </section>
+      </section> */}
     </>
   );
 };
