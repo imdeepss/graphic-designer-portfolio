@@ -18,11 +18,11 @@ class ShootingStarEffect extends Component<{}, ShootingStarProps> {
       targets: ["#sky .star"],
       opacity: [
         {
-          duration: 700,
+          duration: 300,
           value: "0",
         },
         {
-          duration: 700,
+          duration: 300,
           value: "1",
         },
       ],
@@ -32,7 +32,7 @@ class ShootingStarEffect extends Component<{}, ShootingStarProps> {
     });
   };
 
-  randomRadius = () => Math.random() * 0.7 + 0.6;
+  randomRadius = () => Math.random() * 5;
 
   getRandomX = () => {
     return Math.floor(Math.random() * Math.floor(this.state.vw)).toString();
