@@ -17,7 +17,7 @@ const fetchImages = async () => {
     const result = await cloudinary.v2.search
       .expression(`folder:${process.env.CLOUDINARY_FOLDER}/*`)
       .sort_by("public_id", "desc")
-      .max_results(100)
+      .max_results(50)
       .execute();
 
     const results = result.resources;
@@ -46,7 +46,10 @@ const ImageGallery = async () => {
   const results: ImageProps[] = await getResults();
 
   return (
-    <section className="w-full py-20">
+    <section className="w-full py-20 text-center" id="Gallery">
+      <h2 className="mb-10 inline-block border-b-2 border-primary pb-5 text-5xl font-bold text-primary">
+        Gallery
+      </h2>
       <div className="columns-1 gap-4 sm:columns-2 xl:columns-3 2xl:columns-4">
         <Suspense fallback={<Loading />}>
           {results.map((details) => (

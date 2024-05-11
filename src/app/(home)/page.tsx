@@ -13,8 +13,8 @@ export default function Home() {
       <Container>
         <Header />
         <Banner />
-        <ImageGallery />
         <AboutUs />
+        <ImageGallery />
         <Contact />
         <Footer />
       </Container>

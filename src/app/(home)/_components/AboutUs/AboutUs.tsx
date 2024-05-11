@@ -4,7 +4,7 @@ import React from "react";
 const AboutUs = () => {
   return (
     <>
-      <section className="relative  w-full md:h-screen">
+      <section className="relative w-full md:h-screen" id="About">
         <div className="grid h-full grid-cols-1 content-center gap-5 md:grid-cols-2 ">
           <div className="">
             <h1 className="mb-5 text-3xl font-extrabold text-primary md:text-6xl">

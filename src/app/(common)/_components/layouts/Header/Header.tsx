@@ -2,31 +2,43 @@
 
 import { BreadcrumbIcon, CloseIcon } from "@/components/icons";
 import Link from "next/link";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 
 const menuItems = [
-  { label: "About", url: "/" },
-  { label: "Contact", url: "/" },
-  { label: "Gallery", url: "/" },
+  { label: "About", url: "About" },
+  { label: "Contact", url: "Contact" },
+  { label: "Gallery", url: "Gallery" },
 ];
+
+const goToSection = (name: string) => {
+  const chooseGiftElement = document.getElementById(name);
+  if (chooseGiftElement) {
+    chooseGiftElement.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+      inline: "nearest",
+    });
+  }
+};
 
 const Header = () => {
   const [collapseMenu, setCollapseMenu] = useState(false);
 
-  function handleClick() {
+  const handleClick = () => {
     setCollapseMenu(!collapseMenu);
-  }
+  };
+
+  const handleMenuItemClick = useCallback((url: string) => {
+    goToSection(url);
+  }, []);
+
   return (
     <header className="py-5">
       <nav className="relative flex flex-wrap items-center justify-between gap-4 text-xl font-medium text-primary">
         <Link href="/">
           <h2 className="text-2xl font-bold">LOGO</h2>
         </Link>
-        <button
-          type="button"
-          className="lg:hidden"
-          onClick={() => handleClick()}
-        >
+        <button type="button" className="lg:hidden" onClick={handleClick}>
           {collapseMenu ? <CloseIcon /> : <BreadcrumbIcon />}
         </button>
         <ul
@@ -35,9 +47,13 @@ const Header = () => {
           } w-full flex-col gap-5 lg:flex lg:w-auto lg:flex-row lg:items-center`}
         >
           {menuItems.map((item, index) => (
-            <Link href={item.url} key={index}>
+            <button
+              type="button"
+              onClick={() => handleMenuItemClick(item.url)}
+              key={index}
+            >
               <li className="cursor-pointer">{item.label}</li>
-            </Link>
+            </button>
           ))}
         </ul>
       </nav>
