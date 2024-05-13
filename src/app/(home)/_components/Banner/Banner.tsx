@@ -2,7 +2,7 @@ import Image from "next/image";
 
 const Banner = () => {
   return (
-    <section className="flex min-h-[calc(100svh_-_120px)] w-full items-center justify-center">
+    <section className="flex w-full items-center justify-center py-20 md:min-h-[calc(100svh_-_120px)] md:py-0">
       {/* <div className="w-full py-5 text-left md:w-[700px]">
         <h1 className="text-2xl font-medium text-primary md:text-5xl">
           Hello, I am Simran Vishwakarma, a Photographer & Designer based in
