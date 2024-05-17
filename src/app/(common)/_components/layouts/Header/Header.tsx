@@ -1,6 +1,11 @@
 "use client";
 
-import { BreadcrumbIcon, CloseIcon } from "@/components/icons";
+import {
+  BreadcrumbIcon,
+  CloseIcon,
+  SimranLogo,
+  SimranLogo_V2,
+} from "@/components/icons";
 import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useState } from "react";
@@ -37,12 +42,8 @@ const Header = () => {
     <header className="py-5">
       <nav className="relative flex flex-wrap items-center justify-between gap-4 text-xl font-medium text-primary">
         <Link href="/">
-          <Image
-            src="/images/sim.png"
-            width={120}
-            height={120}
-            alt="Simran Vishwakarma"
-          />
+          {/* <SimranLogo /> */}
+          <SimranLogo_V2 />
         </Link>
         <button type="button" className="lg:hidden" onClick={handleClick}>
           {collapseMenu ? <CloseIcon /> : <BreadcrumbIcon />}
