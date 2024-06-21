@@ -9,7 +9,7 @@ const Banner = () => {
     <AnimatePresence>
       <section className="flex w-full items-center justify-center py-20 md:min-h-[calc(100svh_-_120px)] md:py-0">
         <div className="flex w-full flex-wrap items-center justify-between">
-          <div className="relative z-10 w-full text-primary lg:w-1/2">
+          <div className="relative w-full text-primary lg:w-1/2">
             <AnimationDiv
               initial={{ opacity: 0, x: -500, y: 500, scale: 0.5 }}
               animate={{ opacity: 1, x: 0, y: 0, scale: 1 }}

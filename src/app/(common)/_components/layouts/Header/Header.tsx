@@ -69,24 +69,24 @@ const Header = () => {
             <button type="button" className="lg:hidden" onClick={handleClick}>
               {collapseMenu ? <CloseIcon /> : <BreadcrumbIcon />}
             </button>
-            <ul
-              className={`${
-                collapseMenu ? "flex" : "hidden"
-              } w-full flex-col gap-5 lg:flex lg:w-auto lg:flex-row lg:items-center`}
-            >
-              {menuItems.map((item, index) => (
-                <button
-                  type="button"
-                  onClick={() => handleMenuItemClick(item.url)}
-                  key={index}
-                >
-                  <li className="hover:text-green cursor-pointer transition duration-300 ease-in-out  hover:underline hover:underline-offset-1 ">
-                    {item.label}
-                  </li>
-                </button>
-              ))}
-            </ul>
           </motion.div>
+          <ul
+            className={`${
+              collapseMenu ? "flex" : "hidden"
+            } w-full flex-col gap-5 lg:flex lg:w-auto lg:flex-row lg:items-center`}
+          >
+            {menuItems.map((item, index) => (
+              <button
+                type="button"
+                onClick={() => handleMenuItemClick(item.url)}
+                key={index}
+              >
+                <li className="hover:text-green cursor-pointer transition duration-300 ease-in-out  hover:underline hover:underline-offset-1 ">
+                  {item.label}
+                </li>
+              </button>
+            ))}
+          </ul>
         </AnimatePresence>
       </nav>
     </header>
