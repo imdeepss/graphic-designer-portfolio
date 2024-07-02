@@ -27,6 +27,33 @@ type ModalProps = {
 };
 
 const ImageModal = ({ open, onClose, imageURL }: Props) => {
+  const handleDownload = async () => {
+    try {
+      const response = await fetch(imageURL);
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const blob = await response.blob();
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+
+      // Set the Content-Disposition header to force download
+      link.setAttribute("download", "child-image.jpg");
+      link.setAttribute(
+        "content-disposition",
+        "attachment; filename=image.jpg",
+      );
+
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch (error) {
+      console.error("Error downloading the image:", error);
+    }
+  };
+
   const Modal = ({ open, onClose, children }: ModalProps) => {
     if (!open) {
       return null;
@@ -57,17 +84,13 @@ const ImageModal = ({ open, onClose, imageURL }: Props) => {
     );
   };
 
-  const onDownload = () => {
-    console.log("Download");
-  };
-
   const ModalOverlay = ({ onClose, children }: ModalOverlayProps) => {
     return (
       <div className="fixed inset-0 z-30">
         <div className="modal-dialog">
           <div className="modal-content relative z-30 flex aspect-[3/2] items-center justify-center">
             <CloseButton onClose={onClose} />
-            <DownloadButton onDownload={onDownload} />
+            <DownloadButton onDownload={handleDownload} />
             {children}
           </div>
         </div>
