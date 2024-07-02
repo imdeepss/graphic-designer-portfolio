@@ -77,7 +77,17 @@ const ImageModal = ({ open, onClose, imageURL }: Props) => {
 
   return (
     <Modal open={open} onClose={onClose}>
-      <Image src={imageURL} alt={imageURL} className="" layout="fill" />
+      <Image
+        src={imageURL}
+        alt={imageURL}
+        className=""
+        width={720}
+        height={480}
+        sizes="(max-width: 640px) 100vw,
+          (max-width: 1280px) 50vw,
+          (max-width: 1536px) 33vw,
+          25vw"
+      />
     </Modal>
   );
 };

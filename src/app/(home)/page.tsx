@@ -8,6 +8,8 @@ import { ImageProps } from "@/type/index";
 import cloudinary from "cloudinary";
 import { AboutUs, Banner, Contact, ImageGallery } from "./_components";
 
+export const dynamic = "force-dynamic";
+
 const fetchImages = async () => {
   cloudinary.v2.config({
     cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
