@@ -1,8 +1,7 @@
-import { DownloadIcon, ModalCloseIcon } from "@/components/icons";
 import { ReactNode } from "react";
 import ReactDOM from "react-dom";
-import DownloadButton from "./DownloadButton";
 import CloseButton from "./CloseButton";
+import DownloadButton from "./DownloadButton";
 
 type BackDropProps = {
   onClick: () => void;
