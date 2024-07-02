@@ -11,7 +11,7 @@ const AboutUs = () => {
           <motion.div
             initial={{
               opacity: 0,
-              x: -100,
+              x: -10,
             }}
             whileInView={{
               opacity: 1,
@@ -53,7 +53,7 @@ const AboutUs = () => {
           <motion.div
             initial={{
               opacity: 0,
-              x: 100,
+              x: 10,
             }}
             whileInView={{
               opacity: 1,

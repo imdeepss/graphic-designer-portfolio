@@ -1,9 +1,9 @@
 import React, { ReactNode } from "react";
 import ReactDOM from "react-dom";
 import Image from "next/image";
-
 import CloseButton from "./CloseButton";
 import DownloadButton from "./DownloadButton";
+import { useLockBodyScroll } from "@/app/hooks";
 
 type Props = {
   open: boolean;
@@ -11,19 +11,28 @@ type Props = {
   imageURL: string;
 };
 
-type BackDropProps = {
-  onClick: () => void;
-};
-
-type ModalOverlayProps = {
-  onClose: () => void;
-  children: ReactNode;
-};
-
 type ModalProps = {
   open: boolean;
   onClose: () => void;
   children: ReactNode;
+};
+
+const BackDrop = ({ onClick }: { onClick: () => void }) => {
+  return (
+    <div
+      role="presentation"
+      className="fixed inset-0 z-20 h-screen w-screen bg-black/70 backdrop-blur-2xl"
+      onClick={onClick}
+    />
+  );
+};
+
+const ModalOverlay = ({ children }: { children: ReactNode }) => {
+  return (
+    <div className="fixed inset-0 z-30 flex items-center justify-center">
+      {children}
+    </div>
+  );
 };
 
 const ImageModal = ({ open, onClose, imageURL }: Props) => {
@@ -38,14 +47,7 @@ const ImageModal = ({ open, onClose, imageURL }: Props) => {
       const url = URL.createObjectURL(blob);
       const link = document.createElement("a");
       link.href = url;
-
-      // Set the Content-Disposition header to force download
-      link.setAttribute("download", "child-image.jpg");
-      link.setAttribute(
-        "content-disposition",
-        "attachment; filename=image.jpg",
-      );
-
+      link.setAttribute("download", "image.jpg");
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -54,65 +56,43 @@ const ImageModal = ({ open, onClose, imageURL }: Props) => {
     }
   };
 
-  const Modal = ({ open, onClose, children }: ModalProps) => {
-    if (!open) {
-      return null;
-    }
+  useLockBodyScroll(open);
 
-    const modalDiv = document.getElementById("modalOverlay");
+  if (!open) {
+    return null;
+  }
 
-    return (
-      <>
-        {modalDiv &&
-          ReactDOM.createPortal(<BackDrop onClick={onClose} />, modalDiv)}
-        {modalDiv &&
-          ReactDOM.createPortal(
-            <ModalOverlay onClose={onClose}>{children}</ModalOverlay>,
-            modalDiv,
-          )}
-      </>
-    );
-  };
+  const modalDiv = document.getElementById("modalOverlay");
 
-  const BackDrop = ({ onClick }: BackDropProps) => {
-    return (
-      <div
-        role="presentation"
-        className="fixed inset-0 z-20 h-screen w-screen overflow-hidden bg-black/70 backdrop-blur-2xl"
-        onClick={onClick}
-      />
-    );
-  };
-
-  const ModalOverlay = ({ onClose, children }: ModalOverlayProps) => {
-    return (
-      <div className="fixed inset-0 z-30">
-        <div className="modal-dialog">
-          <div className="modal-content relative z-30 flex aspect-[3/2] items-center justify-center">
-            <CloseButton onClose={onClose} />
-            <DownloadButton onDownload={handleDownload} />
-            {children}
-          </div>
-        </div>
-      </div>
-    );
-  };
-
-  return (
-    <Modal open={open} onClose={onClose}>
-      <Image
-        src={imageURL}
-        alt={imageURL}
-        className=""
-        width={720}
-        height={480}
-        sizes="(max-width: 640px) 100vw,
-          (max-width: 1280px) 50vw,
-          (max-width: 1536px) 33vw,
-          25vw"
-      />
-    </Modal>
-  );
+  return modalDiv
+    ? ReactDOM.createPortal(
+        <>
+          <BackDrop onClick={onClose} />
+          <ModalOverlay>
+            <div className="modal-dialog">
+              <div className="modal-content relative flex aspect-[3/2] h-full w-full items-center justify-center">
+                <div className="relative">
+                  <CloseButton onClose={onClose} />
+                  <DownloadButton onDownload={handleDownload} />
+                  <Image
+                    src={imageURL}
+                    alt={imageURL}
+                    className=""
+                    width={720}
+                    height={480}
+                    sizes="(max-width: 640px) 100vw,
+                      (max-width: 1280px) 50vw,
+                      (max-width: 1536px) 33vw,
+                      25vw"
+                  />
+                </div>
+              </div>
+            </div>
+          </ModalOverlay>
+        </>,
+        modalDiv,
+      )
+    : null;
 };
 
 export default ImageModal;
