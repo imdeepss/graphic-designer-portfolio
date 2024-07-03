@@ -7,3 +7,20 @@
     clip-path: inset(0.6px);
   }
 }
+
+.modal-content::-webkit-scrollbar ,
+body::-webkit-scrollbar {
+  width: 5px;
+}
+
+.modal-content::-webkit-scrollbar-track ,
+body::-webkit-scrollbar-track {
+  background: #FFFFED;
+  border-radius: 10px;
+}
+
+.modal-content::-webkit-scrollbar-thumb ,
+body::-webkit-scrollbar-thumb {
+  background: #002b35;
+  border-radius: 10px;
+}

@@ -29,7 +29,7 @@ const BackDrop = ({ onClick }: { onClick: () => void }) => {
 
 const ModalOverlay = ({ children }: { children: ReactNode }) => {
   return (
-    <div className="fixed inset-0 z-30 flex items-center justify-center">
+    <div className="modal fixed inset-0 z-30 mx-auto max-w-[600px] rounded-md p-5 outline-none">
       {children}
     </div>
   );
@@ -69,23 +69,21 @@ const ImageModal = ({ open, onClose, imageURL }: Props) => {
         <>
           <BackDrop onClick={onClose} />
           <ModalOverlay>
-            <div className="modal-dialog">
-              <div className="modal-content relative flex aspect-[3/2] h-full w-full items-center justify-center">
-                <div className="relative">
-                  <CloseButton onClose={onClose} />
-                  <DownloadButton onDownload={handleDownload} />
-                  <Image
-                    src={imageURL}
-                    alt={imageURL}
-                    className=""
-                    width={720}
-                    height={480}
-                    sizes="(max-width: 640px) 100vw,
-                      (max-width: 1280px) 50vw,
-                      (max-width: 1536px) 33vw,
-                      25vw"
-                  />
-                </div>
+            <div className="modal-dialog relative h-full w-auto overflow-hidden rounded-md">
+              <div className="modal-content pointer-events-auto relative h-full w-full overflow-y-auto">
+                <DownloadButton onDownload={handleDownload} />
+                <CloseButton onClose={onClose} />
+                <Image
+                  src={imageURL}
+                  alt={imageURL}
+                  className="object-contain shadow-xl"
+                  width={720}
+                  height={480}
+                  sizes="(max-width: 640px) 100vw,
+                    (max-width: 1280px) 50vw,
+                    (max-width: 1536px) 33vw,
+                    25vw"
+                />
               </div>
             </div>
           </ModalOverlay>

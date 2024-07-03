@@ -21,7 +21,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         {children}
-        <div id="modalOverlay" className="flex items-center justify-center" />
+        <div id="modalOverlay" className="relative" />
       </body>
     </html>
   );
